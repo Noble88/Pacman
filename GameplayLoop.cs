@@ -15,24 +15,43 @@ public class GameplayLoop : MonoBehaviour
     {
         //Tile.Level1.BG = LevelManager.LevelFrontEnd;
         LevelManager.LevelFrontEnd = new TileGrid(new Vector2Int(20,20),1,"LEVEL",new Vector3(0,0,0));
-        LevelManager.Player.SpawnPlayers(new Vector2Int(1,1));
-        LevelManager.SwapLevel(1);
-    }
-    void Update()
-    {
-        keyboardInput();
-        if (isNewKeyPressed){ //Checks to see if a new key is pressed 
-            //Debug.Log("PRESSED: "+associatedKey);
-            LevelManager.inputDirector(); 
-            associatedKey="N/A"; key = "N/A"; isNewKeyPressed = false; //After "inputDirector", Allows for another key input (resets vars)
-        }
-        LevelManager.LevelFrontEnd.executeDisplayOfTileGrid();
-        //CompleteTick();
-    
+        LevelManager.GoToLevel(1);
+        LevelManager.Player.SpawnPlayers(new Vector2Int(6,8));
+        associatedKey = "N/A";
+        LevelManager.enemies[0]= new Enemy()
+        LevelManager.LevelFrontEnd.updateWholeGrid(); //Update Grid after all changes are mode
+
     }
 
-    public void keyboardInput()
+    private float tickInterval = 1f/20f; 
+    private float timeSinceLastTick = 0.0f;
+
+
+    float totalNumberOfTicks=20;
+    float currentTick;
+    
+    void Update()
     {
+        timeSinceLastTick += Time.deltaTime;
+        keyboardInput();
+        // Check if it's time for a tick.
+        if (timeSinceLastTick >= tickInterval) {
+            if (currentTick%2==0) { LevelManager.inputDirector(); } //Tick for player (moves every other tick)
+            LevelManager.
+            LevelManager.LevelFrontEnd.executeDisplayOfTileGrid(); //Update Grid after all changes are mode
+
+            #region Tick EndBehvaior 
+            timeSinceLastTick = 0.0f;
+            if (totalNumberOfTicks == currentTick) { currentTick = 0; }//resets ticks if at 20 ticks (20ticks = 1 seocnd)
+            currentTick++; // Updates tick
+            #endregion
+        }
+        
+        
+    }
+
+
+    public void keyboardInput() {
         if(Input.GetKeyDown(KeyCode.W)){keyPressed("UP");}
         if(Input.GetKeyDown(KeyCode.A)){keyPressed("LEFT");}
         if(Input.GetKeyDown(KeyCode.D)){keyPressed("RIGHT");}

@@ -121,6 +121,8 @@ public class Tile  { //Tile is made from [1 cube] & [text box above it]
       switch (e)
       {
         case '#': return Color.blue;
+        case 'o': return Color.blue;
+        case 'R': return Color.blue;
       }
     }
     return Color.black;

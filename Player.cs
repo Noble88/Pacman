@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player {
-  public Vector2Int pos = new Vector2Int(1, 1); //pos = "Player Position" or just "Position"
+public class Player
+{
+  public Vector2Int pos; //pos = "Player Position" or just "Position"
   public char symFacingFG=' ',symFacingBG=' ';
-  public ArrayList walkablesList = new ArrayList{'o','R','#',' '};
+  public ArrayList walkablesList = new ArrayList{'o','R','#'};
   public string directionFacing = "N/A";
   public char playerSymbol = '@';
   
@@ -19,7 +20,9 @@ public class Player {
     Vector2Int des = GlobalMethods.findCords(pos,GameplayLoop.associatedKey); // des = Destination
     directionFacing = GlobalMethods.findDirectionFacing(pos, des);
     UnityEngine.Debug.Log("Facing ("+directionFacing+") MOVING PLAYER FROM ("+pos.x+","+pos.y+") to ("+des.x+","+des.y+")");
+    
     #region Physical Collision
+    
     if (isDesCharAllowedWalkable(des)) { //Will move player to a allowed walkable character
       pos = GlobalMethods.moveCharOnLevel(pos,des,playerSymbol);
     }
@@ -30,6 +33,7 @@ public class Player {
     }
     if (isDesPowerPellet(des)) {
       LevelManager.LevelBackEnd.setE(des,'#',false);
+      
       //TODO IMPLIMENT : MAKE PLAYER INVINSABLE & KILL GHOST MODE
     }
     

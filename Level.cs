@@ -65,16 +65,16 @@ public class Level {
     }
 
     #region Methods for Changing Chars in FG & BG
-
-    public char   getE  (Vector2Int pos, bool getFG){
+    //Note: Fg=forground & BG = background
+    public char   getE  (Vector2Int pos, bool getFG){ //This get the character of the 2D array using a given position 
       if(getFG){return FG[pos.y,pos.x];}
       else     {return BG[pos.y,pos.x];}
     }
-    public void   setE  (Vector2Int pos, char e, bool editFG){
+    public void   setE  (Vector2Int pos, char e, bool editFG){ //This will change a character in the 2D array using the givien position
       if(editFG){FG[pos.y,pos.x]=e;}
       else      {BG[pos.y,pos.x]=e;}
     }
-    public void   flipE (Vector2Int pos, bool flipFG){
+    public void   flipE (Vector2Int pos, bool flipFG){//This will make the character in the FG to the BG within the given position
       if(flipFG){FG[pos.y,pos.x]=BG[pos.y,pos.x];}
       else      {BG[pos.y,pos.x]=FG[pos.y,pos.x];}
     }

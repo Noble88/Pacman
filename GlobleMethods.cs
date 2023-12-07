@@ -48,6 +48,4 @@ public class GlobalMethods {
     return num.ToString();
   }
 
-  public static void GameStateSwitchChecker() {
-  }
 }
